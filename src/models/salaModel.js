@@ -1,8 +1,7 @@
-function listarSalas() {
-    return [{
-        nicolas : "lamb",
-        marineti : "lamb"
-    }]
+const db = require("./db.js")
+
+async function listarSalas() {
+    return await db.findAll('salas')
 }
 
 module.exports = { listarSalas } 
