@@ -1,12 +1,11 @@
-require('dotenv').config();
-const app = require("../src/api")
+require("dotenv").config();
+const app = require("../src/api");
 
 app.use((req, res, next)=>{
-    next()
-})
+    next();
+});
+console.log(process.env.API_PORT);
+let port = process.env.API_PORT|| 3001;
+app.listen(port);
 
-const port = process.env.PORT || 5001;
-
-app.listen(port)
-
-console.log("Porta: " + port)
+console.log(`listening on ${port}`);
