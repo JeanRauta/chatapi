@@ -1,3 +1,5 @@
-exports.get = async (req, res) => {
-    return { "status": "OK", "controller": "sala" };
-};
+const salaModel = require('../models/salaModel')
+ 
+exports.get = async()=>{
+    return await salaModel.listarSalas()
+}
