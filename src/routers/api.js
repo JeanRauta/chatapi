@@ -9,12 +9,10 @@ app.use(express.json());
 
 const router = express.Router();
 
-// Rota principal
 app.use('/', router.get('/', (req, res) => {
     res.status(200).send("<h2>CHATAPI</h2>");
 }));
 
-// Rota para informações sobre a API
 app.use('/', router.get('/sobre', (req, res) => {
     res.status(200).send({
         "nome": "chatapi",
@@ -22,7 +20,6 @@ app.use('/', router.get('/sobre', (req, res) => {
     });
 }));
 
-// Rota para listar salas
 app.use('/', router.get('/salas', async (req, res) => {
     if (await token.checktoken(req.headers.token, req.headers.iduser, req.headers.nick)) {
         let resp = await salaController.get();
@@ -32,13 +29,11 @@ app.use('/', router.get('/salas', async (req, res) => {
     }
 }));
 
-// Rota para o usuário entrar no chat
 app.use('/', router.post('/entrar', async (req, res) => {
     let resp = await usuarioController.entrar(req.body.nick);
     res.status(200).send(resp);
 }));
 
-// Rota para criar uma sala
 app.use("/", router.post("/sala/criar", async (req, res) => {
     const { nome, tipo, senha } = req.body;
 
@@ -50,7 +45,6 @@ app.use("/", router.post("/sala/criar", async (req, res) => {
     res.status(200).send(resp);
 }));
 
-// Rota para entrar em uma sala
 app.use("/", router.put("/sala/entrar", async (req, res) => {
     const { idsala, senha } = req.query;
 
@@ -62,7 +56,6 @@ app.use("/", router.put("/sala/entrar", async (req, res) => {
     res.status(200).send(resp);
 }));
 
-// Rota para enviar mensagem em uma sala
 app.use('/', router.post('/sala/mensagem', async (req, res) => {
     if (!await token.checktoken(req.headers.token, req.headers.iduser, req.headers.nick)) {
         return res.status(400).send({ msg: "Usuário não autorizado" });
@@ -71,7 +64,6 @@ app.use('/', router.post('/sala/mensagem', async (req, res) => {
     res.status(200).send(resp);
 }));
 
-// Rota para buscar mensagens de uma sala
 app.use('/', router.get('/sala/mensagens', async (req, res) => {
     if (!await token.checktoken(req.headers.token, req.headers.iduser, req.headers.nick)) {
         return res.status(400).send({ msg: "Usuário não autorizado" });
@@ -80,7 +72,6 @@ app.use('/', router.get('/sala/mensagens', async (req, res) => {
     res.status(200).send(resp);
 }));
 
-// Rota para sair de uma sala
 app.use("/", router.delete("/sala/sair", async (req, res) => {
     if (!await token.checktoken(req.headers.token, req.headers.iduser, req.headers.nick)) {
         return res.status(400).send({ msg: "Usuário não autorizado" });
@@ -89,7 +80,6 @@ app.use("/", router.delete("/sala/sair", async (req, res) => {
     res.status(200).send(resp);
 }));
 
-// Rota para sair do chat
 app.use("/", router.delete("/sair", async (req, res) => {
     if (!await token.checktoken(req.headers.token, req.headers.iduser, req.headers.nick)) {
         return res.status(400).send({ msg: "Usuário não autorizado" });

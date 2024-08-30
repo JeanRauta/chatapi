@@ -15,8 +15,8 @@ let buscarSala = async (idsala) => {
 let criarSala = async (nome, tipo, senha = null) => {
     const sala = {
         nome: nome,
-        tipo: tipo, // "publica" ou "privada"
-        senha: senha, // se for privada, define uma senha
+        tipo: tipo, 
+        senha: senha,
         msgs: [],
     };
     return await db.insertOne("salas", sala);
