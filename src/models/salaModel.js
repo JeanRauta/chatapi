@@ -25,6 +25,7 @@ let criarSala = async (nome, tipo, senha = null) => {
 let buscarMensagens = async (idsala, timestamp) => {
     let sala = await buscarSala(idsala);
     if (sala.msgs) {
+        console.log(sala.msgs)
         let msgs = sala.msgs.filter(msg => msg.timestamp >= timestamp);
         return msgs;
     }
